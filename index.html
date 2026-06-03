@@ -1,14 +1,595 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My AWS Website</title>
-    <style>
-        body { font-family: Arial; text-align: center; padding: 50px; background: #667eea; color: white; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Imranmohmmad Shaikh · Resume</title>
+  <!-- Google Fonts + Font Awesome 6 (free) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #e0eafc 0%, #cfdef3 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2c3e;
+      padding: 2rem 1.5rem;
+      line-height: 1.45;
+    }
+
+    /* main card container */
+    .resume-card {
+      max-width: 1050px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    /* inner layout: 2 columns (sidebar + main) */
+    .resume-grid {
+      display: grid;
+      grid-template-columns: 34% 66%;
+    }
+
+    /* ========= SIDEBAR (left column) ========= */
+    .sidebar {
+      background-color: #0f2b3d;
+      color: #eef4ff;
+      padding: 2rem 1.6rem;
+      height: 100%;
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .avatar-icon {
+      font-size: 5.5rem;
+      color: #f0c45a;
+      background: rgba(255, 255, 255, 0.08);
+      width: 110px;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem auto;
+      border-radius: 50%;
+      border: 3px solid #f0c45a;
+      transition: transform 0.2s;
+    }
+
+    .avatar-icon i {
+      font-size: 4rem;
+    }
+
+    .sidebar h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: white;
+      margin-bottom: 0.35rem;
+      line-height: 1.2;
+    }
+
+    .sidebar .tagline {
+      font-size: 0.85rem;
+      background: rgba(240, 196, 90, 0.22);
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-weight: 500;
+      color: #ffefc0;
+      margin-top: 0.5rem;
+    }
+
+    .info-section {
+      margin: 2rem 0 1.8rem 0;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      word-break: break-word;
+      color: #d9e6f2;
+    }
+
+    .info-item i {
+      width: 28px;
+      font-size: 1.2rem;
+      color: #f0c45a;
+      text-align: center;
+    }
+
+    .info-item span {
+      line-height: 1.4;
+      font-weight: 400;
+    }
+
+    .divider-light {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 1.5rem 0;
+    }
+
+    .skills-title, .lang-title, .cert-title {
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #f0c45a;
+    }
+
+    .skills-title i, .lang-title i, .cert-title i {
+      font-size: 1.1rem;
+    }
+
+    .skill-badge {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .skill-badge span {
+      background: rgba(255, 255, 255, 0.12);
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: 0.1s;
+    }
+
+    .lang-item {
+      margin-bottom: 0.7rem;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .lang-name {
+      font-weight: 500;
+    }
+
+    .lang-level {
+      color: #cbdbe6;
+      font-size: 0.75rem;
+    }
+
+    .cert-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .cert-list li {
+      font-size: 0.85rem;
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .cert-list li i {
+      color: #f0c45a;
+      font-size: 0.75rem;
+      margin-top: 0.2rem;
+    }
+
+    /* ========= MAIN CONTENT (right column) ========= */
+    .main-content {
+      background: white;
+      padding: 2rem 2rem 2rem 2rem;
+    }
+
+    .section {
+      margin-bottom: 1.8rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0f2b3d;
+      border-left: 5px solid #f0c45a;
+      padding-left: 1rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title i {
+      color: #f0c45a;
+      font-size: 1.25rem;
+    }
+
+    .about-text {
+      color: #2c3e44;
+      line-height: 1.5;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      background: #fafcff;
+      padding: 0.6rem 0;
+    }
+
+    .education-item {
+      margin-bottom: 1.2rem;
+    }
+
+    .edu-degree {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0f2b3d;
+    }
+
+    .edu-institute {
+      font-size: 0.85rem;
+      color: #4a6272;
+      margin: 0.2rem 0 0.3rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .badge-mscit {
+      background: #eef2fa;
+      border-radius: 30px;
+      padding: 0.2rem 0.7rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #0f2b3d;
+    }
+
+    .project-item, .learning-card {
+      background: #f9fbfe;
+      border-radius: 1rem;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      transition: all 0.2s;
+      border: 1px solid #e9edf2;
+    }
+
+    .project-title {
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: #2c4b5e;
+      margin-top: 0.25rem;
+      line-height: 1.45;
+    }
+
+    .aws-highlight {
+      background: #fffbeb;
+      border-left: 4px solid #f0b429;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.7rem;
+    }
+
+    .tech-stack span {
+      background: #eaeef3;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-weight: 500;
+      color: #1f3b4a;
+    }
+
+    .cert-badge-mini {
+      background: #eef2fa;
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      margin-left: 0.6rem;
+      font-weight: 500;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: 0;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    /* Responsive */
+    @media (max-width: 780px) {
+      body {
+        padding: 1rem;
+      }
+      .resume-grid {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        text-align: left;
+      }
+      .avatar-icon {
+        width: 85px;
+        height: 85px;
+      }
+      .avatar-icon i {
+        font-size: 3rem;
+      }
+      .main-content {
+        padding: 1.8rem;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .resume-card {
+        box-shadow: none;
+        border-radius: 0;
+      }
+      .sidebar {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .badge-mscit, .skill-badge span, .cert-badge-mini {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+
+    .footer-note {
+      font-size: 0.7rem;
+      text-align: center;
+      margin-top: 1rem;
+      color: #6a7e8c;
+      border-top: 1px solid #eef2f8;
+      padding-top: 1rem;
+    }
+  </style>
 </head>
 <body>
-    <h1>🚀 My Website is LIVE on AWS!</h1>
-    <p>This page was uploaded manually to S3.</p>
-    <p>Imran.</p>
+<div class="resume-card">
+  <div class="resume-grid">
+    <!-- LEFT COLUMN (Sidebar) -->
+    <aside class="sidebar">
+      <div class="profile-header">
+        <div class="avatar-icon">
+          <i class="fas fa-user-astronaut"></i>
+        </div>
+        <h1>Imranmohmmad<br>Shaikh</h1>
+        <div class="tagline">MSCIT Graduate | Cloud Enthusiast</div>
+      </div>
+
+      <div class="info-section">
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <span>imran.shaikh@example.com</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-phone-alt"></i>
+          <span>+91 98765 43210</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Mumbai, Maharashtra, India</span>
+        </div>
+        <div class="info-item">
+          <i class="fab fa-linkedin"></i>
+          <span>linkedin.com/in/imran-shaikh</span>
+        </div>
+        <div class="info-item">
+          <i class="fab fa-github"></i>
+          <span>github.com/imranshaikh</span>
+        </div>
+      </div>
+
+      <div class="divider-light"></div>
+
+      <!-- Technical Skills -->
+      <div class="skills-title">
+        <i class="fas fa-code"></i> <span>Core Competencies</span>
+      </div>
+      <div class="skill-badge">
+        <span>HTML5/CSS3</span>
+        <span>JavaScript (basic)</span>
+        <span>Python (learning)</span>
+        <span>AWS Cloud</span>
+        <span>Linux Basics</span>
+        <span>Git & GitHub</span>
+        <span>MS Office Suite</span>
+      </div>
+
+      <div class="divider-light"></div>
+
+      <div class="lang-title">
+        <i class="fas fa-language"></i> <span>Languages</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">English</span>
+        <span class="lang-level">Professional working</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">Hindi</span>
+        <span class="lang-level">Native / Bilingual</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">Marathi</span>
+        <span class="lang-level">Fluent</span>
+      </div>
+
+      <div class="divider-light"></div>
+
+      <div class="cert-title">
+        <i class="fas fa-certificate"></i> <span>Certifications</span>
+      </div>
+      <ul class="cert-list">
+        <li><i class="fas fa-check-circle"></i> MSCIT (Maharashtra State Certificate in IT)</li>
+        <li><i class="fas fa-check-circle"></i> AWS Cloud Practitioner (in progress)</li>
+        <li><i class="fas fa-check-circle"></i> Fundamentals of Cloud Computing – AWS Academy</li>
+      </ul>
+    </aside>
+
+    <!-- RIGHT COLUMN (main professional content) -->
+    <main class="main-content">
+      <!-- Profile Summary -->
+      <div class="section">
+        <div class="section-title">
+          <i class="fas fa-user-graduate"></i> 
+          <span>Professional Profile</span>
+        </div>
+        <div class="about-text">
+          MSCIT certified professional with a strong passion for cloud computing, specifically Amazon Web Services.  
+          Detail-oriented, motivated learner actively building hands-on skills in AWS core services, infrastructure basics, 
+          and modern deployment strategies. Eager to contribute technical aptitude and problem-solving mindset in a 
+          cloud-focused role.
+        </div>
+      </div>
+
+      <!-- Education Section -->
+      <div class="section">
+        <div class="section-title">
+          <i class="fas fa-graduation-cap"></i>
+          <span>Education & Credentials</span>
+        </div>
+        <div class="education-item">
+          <div class="edu-degree">MSCIT – Maharashtra State Certificate in Information Technology <span class="badge-mscit">Passed with Distinction</span></div>
+          <div class="edu-institute">MKCL / University of Pune | 2022 - 2023</div>
+          <div style="font-size:0.85rem; color:#2c5a74;">Comprehensive training in IT fundamentals, office automation, internet technologies, and digital literacy.</div>
+        </div>
+        <div class="education-item">
+          <div class="edu-degree">Bachelor of Commerce (B.Com) <span class="badge-mscit">Graduate</span></div>
+          <div class="edu-institute">University of Mumbai | 2018 - 2021</div>
+          <div style="font-size:0.85rem; color:#2c5a74;">Foundation in analytical thinking, business communication & data management.</div>
+        </div>
+      </div>
+
+      <!-- AWS Learning Journey + relevant projects -->
+      <div class="section">
+        <div class="section-title">
+          <i class="fab fa-aws"></i>
+          <span>AWS Learning Path</span>
+        </div>
+        <div class="learning-card aws-highlight">
+          <div class="project-title">
+            <span><i class="fab fa-aws" style="color:#f0b429;"></i>  Cloud Practitioner track (In progress)</span>
+            <span style="font-size:0.7rem;">self-paced · 2024</span>
+          </div>
+          <div class="project-desc">
+            Actively studying AWS core concepts: IAM, EC2, S3, VPC, Lambda, CloudFront, and pricing models.  
+            Hands-on labs using AWS Free Tier to launch virtual servers, configure storage buckets, and set up basic security groups.
+          </div>
+          <div class="tech-stack">
+            <span>EC2</span><span>S3</span><span>IAM</span><span>CloudWatch</span><span>VPC basics</span>
+          </div>
+        </div>
+
+        <div class="learning-card">
+          <div class="project-title">
+            <span>🚀 Personal Cloud Project: Static Website Hosting on S3</span>
+          </div>
+          <div class="project-desc">
+            Developed and hosted a responsive personal portfolio on Amazon S3 with custom bucket policy for public access. 
+            Integrated CloudFront for content delivery and basic Route53 configuration (learning stage). 
+            Practiced versioning, lifecycle rules and logging.
+          </div>
+          <div class="tech-stack">
+            <span>AWS S3</span><span>CloudFront</span><span>HTML/CSS</span><span>Route53 (basic)</span>
+          </div>
+        </div>
+
+        <div class="learning-card">
+          <div class="project-title">
+            <span>🐧 Linux & Automation Scripting</span>
+          </div>
+          <div class="project-desc">
+            Familiar with Linux command line, file permissions, and bash scripting fundamentals. 
+            Created automated backup scripts and scheduled cron jobs, aligning with AWS Systems Manager concepts.
+          </div>
+          <div class="tech-stack">
+            <span>Ubuntu</span><span>Bash</span><span>CRON</span><span>SSH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Experience / Projects -->
+      <div class="section">
+        <div class="section-title">
+          <i class="fas fa-briefcase"></i>
+          <span>Relevant Projects & Experience</span>
+        </div>
+        <div class="project-item">
+          <div class="project-title">
+            <span>📁 Cloud Resume Challenge (AWS Edition)</span>
+            <span style="font-size:0.7rem;">ongoing</span>
+          </div>
+          <div class="project-desc">
+            Building a dynamic "cloud resume" using AWS Lambda, API Gateway, DynamoDB, and S3 frontend. 
+            Implementing CI/CD with GitHub Actions. This demonstrates serverless integration and infrastructure as code mindset.
+          </div>
+          <div class="tech-stack">
+            <span>AWS Lambda</span><span>API Gateway</span><span>DynamoDB</span><span>GitHub Actions</span>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="project-title">
+            <span>📊 IT Support & Digital Literacy – Freelance</span>
+          </div>
+          <div class="project-desc">
+            Assisted small local businesses in setting up basic IT infrastructure, email configurations, and Microsoft Office 365. 
+            Provided troubleshooting for hardware/software, improving operational efficiency.
+          </div>
+          <div class="tech-stack">
+            <span>Windows Server</span><span>Office 365</span><span>Remote Support</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Learning & Soft Skills -->
+      <div class="section">
+        <div class="section-title">
+          <i class="fas fa-chalkboard-user"></i>
+          <span>Continuous Learning</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
+          <span style="background:#eef2fa; padding:0.3rem 1rem; border-radius: 30px; font-size:0.75rem;">📘 AWS Skill Builder</span>
+          <span style="background:#eef2fa; padding:0.3rem 1rem; border-radius: 30px; font-size:0.75rem;">☁️ Cloud Computing with AWS (Coursera)</span>
+          <span style="background:#eef2fa; padding:0.3rem 1rem; border-radius: 30px; font-size:0.75rem;">🐍 Python for DevOps</span>
+          <span style="background:#eef2fa; padding:0.3rem 1rem; border-radius: 30px; font-size:0.75rem;">🛠️ Docker & Containers (beginner)</span>
+        </div>
+        <div class="about-text" style="margin-top: 0.4rem; font-size:0.85rem;">
+          <i class="fas fa-heart" style="color:#f0c45a;"></i> Passionate about cloud architecture, automation, and continuous improvement. 
+          Regularly participate in AWS community webinars and local cloud user groups.
+        </div>
+      </div>
+
+      <hr>
+      <div class="footer-note">
+        <i class="fas fa-cloud-upload-alt"></i> Open to cloud/internship opportunities • Actively building AWS portfolio • References available upon request
+      </div>
+    </main>
+  </div>
+</div>
 </body>
 </html>
